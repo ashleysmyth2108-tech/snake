@@ -1,14 +1,20 @@
 [ 
-{ "title": "Snake 🐍",
- "desc": "Classic Snake game.",
- "file": "snake12.html",
- "img": "images/snake.png" },
- { "title": "Van Dodger 🚐",
- "desc": "Dodge roadblocks with your trusty van.",
- "file": "van.html", 
-"img": "images/van.png" },
- { "title": "Shoot-em-up ",
- "desc": "simple shooter style game.",
- "file": "shooter.html",
- "img": "images/gun.png" },
- ]
+  { 
+    "title": "Snake 🐍",
+    "desc": "Classic Snake game.",
+    "file": "snake12.html",
+    "img": "images/snake.png" 
+  },
+  { 
+    "title": "Van Dodger 🚐",
+    "desc": "Dodge roadblocks with your trusty van.",
+    "file": "van.html", 
+    "img": "images/van.png" 
+  },
+  { 
+    "title": "Shoot-em-up",
+    "desc": "Simple shooter style game.",
+    "file": "shooter.html",
+    "img": "images/gun.png" 
+  }
+]
