@@ -15,45 +15,59 @@
       align-items: center;
       min-height: 100vh;
     }
+
     .container {
       max-width: 1000px;
       padding: 20px;
       text-align: center;
     }
+
     h1 {
       font-size: 2rem;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
+
+    h2.subtitle {
+      font-size: 1.2rem;
+      color: #94a3b8; /* lighter color for subtitle */
+      margin-bottom: 30px;
+      font-weight: normal;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 20px;
     }
-  .card img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  display: block;
-  border-radius: 12px 12px 0 0; /* rounded top corners */
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
-}
+
+    .card {
+      background: #1e293b;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+
     .card:hover {
       transform: scale(1.05);
     }
+
     .card img {
       width: 100%;
       height: 150px;
       object-fit: cover;
       display: block;
     }
+
     .card-content {
       padding: 16px;
-      flex: 1;
     }
+
     .card h2 {
       margin: 0 0 10px;
       font-size: 1.2rem;
     }
+
     .btn {
       display: inline-block;
       margin-top: 10px;
@@ -63,8 +77,9 @@
       padding: 10px 16px;
       border-radius: 12px;
       font-weight: 600;
-      transition: background .2s;
+      transition: background 0.2s;
     }
+
     .btn:hover {
       background: #0284c7;
     }
@@ -72,7 +87,8 @@
 </head>
 <body>
   <div class="container">
-    <h1>Welcome to My Game Hub 🎮</h1>
+    <h1>Welcome to My Games Hub 🎮</h1>
+    <h2 class="subtitle">Your ultimate gaming destination</h2>
     <div class="grid" id="gameGrid"></div>
   </div>
 
@@ -100,8 +116,8 @@
         console.error("Could not load games.json", err);
       }
     }
+
     loadGames();
   </script>
 </body>
 </html>
-
