@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Shooter Game</title>
+<style>
+  body { margin: 0; overflow: hidden; background: #222; }
+  canvas { display: block; margin: 0 auto; background: #333; }
+</style>
+</head>
+<body>
+<canvas id="gameCanvas"></canvas>
+<script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = 600;
+canvas.height = 400;
+
+// Player
+const player = { x: 300, y: 350, width: 30, height: 30, speed: 5 };
+
+// Bullets
+const bullets = [];
+
+// Enemies
+const enemies = [];
+let enemySpawnTimer = 0;
+
+// Controls
+const keys = {};
+document.addEventListener('keydown', e => keys[e.key] = true);
+document.addEventListener('keyup', e => keys[e.key] = false);
+document.addEventListener('keydown', e => {
+    if(e.key === ' ') bullets.push({ x: player.x + player.width/2 - 5, y: player.y, width: 10, height: 20, speed: 7 });
+});
+
+// Game loop
+function update() {
+    // Move player
+    if(keys['ArrowLeft'] && player.x > 0) player.x -= player.speed;
+    if(keys['ArrowRight'] && player.x < canvas.width - player.width) player.x += player.speed;
+
+    // Update bullets
+    for(let i = bullets.length - 1; i >= 0; i--){
+        bullets[i].y -= bullets[i].speed;
+        if(bullets[i].y < 0) bullets.splice(i,1);
+    }
+
+    // Spawn enemies
+    enemySpawnTimer++;
+    if(enemySpawnTimer > 60){
+        enemies.push({ x: Math.random() * (canvas.width-30), y: -30, width: 30, height: 30, speed: 2 });
+        enemySpawnTimer = 0;
+    }
+
+    // Update enemies
+    for(let i = enemies.length - 1; i >= 0; i--){
+        enemies[i].y += enemies[i].speed;
+
+        // Check collision with bullets
+        for(let j = bullets.length - 1; j >= 0; j--){
+            if(bullets[j].x < enemies[i].x + enemies[i].width &&
+               bullets[j].x + bullets[j].width > enemies[i].x &&
+               bullets[j].y < enemies[i].y + enemies[i].height &&
+               bullets[j].y + bullets[j].height > enemies[i].y){
+                bullets.splice(j,1);
+                enemies.splice(i,1);
+                break;
+            }
+        }
+
+        // Enemy reaches bottom
+        if(enemies[i] && enemies[i].y > canvas.height) {
+            enemies.splice(i,1);
+            // Could reduce player life here
+        }
+    }
+}
+
+function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    // Draw player
+    ctx.fillStyle = 'lime';
+    ctx.fillRect(player.x, player.y, player.width, player.height);
+
+    // Draw bullets
+    ctx.fillStyle = 'yellow';
+    bullets.forEach(b => ctx.fillRect(b.x, b.y, b.width, b.height));
+
+    // Draw enemies
+    ctx.fillStyle = 'red';
+    enemies.forEach(e => ctx.fillRect(e.x, e.y, e.width, e.height));
+}
+
+function gameLoop() {
+    update();
+    draw();
+    requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+</script>
+</body>
+</html>
