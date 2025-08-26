@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>My Games Hub 🎮</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: linear-gradient(to bottom, #0f172a, #1e293b);
+      color: #e2e8f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 1000px;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 0;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0,0,0,.4);
+      transition: transform .2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      display: block;
+    }
+    .card-content {
+      padding: 16px;
+      flex: 1;
+    }
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 10px;
+      background: #0ea5e9;
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: background .2s;
+    }
+    .btn:hover {
+      background: #0284c7;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to My Game Hub 🎮</h1>
+    <div class="grid" id="gameGrid"></div>
+  </div>
+
+  <script>
+    async function loadGames() {
+      try {
+        const res = await fetch("games.json");
+        const games = await res.json();
+        const grid = document.getElementById("gameGrid");
+
+        games.forEach(game => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <img src="${game.img}" alt="${game.title} thumbnail">
+            <div class="card-content">
+              <h2>${game.title}</h2>
+              <p>${game.desc}</p>
+              <a href="${game.file}" class="btn">Play</a>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      } catch (err) {
+        console.error("Could not load games.json", err);
+      }
+    }
+    loadGames();
+  </script>
+</body>
+</html>
