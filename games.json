@@ -1,1 +1,0 @@
-[ { "title": "Snake 🐍", "desc": "Classic Snake game.", "file": "snake.html", "img": "images/snake.png" }, { "title": "Van Dodger 🚐", "desc": "Dodge roadblocks with your trusty van.", "file": "games/van-game.html", "img": "images/van.png" }, { "title": "Flappy Clone 🐤", "desc": "Flap through obstacles.", "file": "games/flappy.html", "img": "images/flappy.png" } ]
